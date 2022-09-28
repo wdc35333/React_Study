@@ -40,3 +40,37 @@ this.setState(
         console.log(this.state);
     }
 }
+
+# useState 사용법
+const [현재상태, 상태를 바꾸어 주는 함수(세터 함수)] = useState(디폴트값);
+
+### useState는 한 컴포넌트에서 여러 번 사용가능하다.
+
+
+# state를 사용할 때 주의사항
+state의 값을 변경할 때에는 setState나 useState를 통해 전달받은 세터 함수를 사용해야 한다.
+ex) 잘못된 예시
+// 클래스형 컴포넌트에서...
+this.state.number = this.state.number + 1;
+this.state.array = this.array.push(2);
+this.state.object.value = 5;
+
+// 함수 컨포넌트에서...
+const [object, setObject] = useState({a: 1, b: 1});
+object.b = 2;
+
+### 배열이나 객체를 업데이트해야 할 때는 배열이나 객체의 사본을 만들고 그 사본에 값을 업데이트한 후, 그 사본의 상태를 setState 혹은 세터 함수를 통해 업데이트한다.
+ex) 사본을 만들어 업데이트하는 예시
+// 객체 다루기
+const object = { a: 1, b: 2, c: 3};
+const nextObject = { ...object, b: 2}; // 사본을 만들어서 b 값만 덮어 쓰기
+
+// 배열 다루기
+const array = [
+    { id: 1, value: true},
+    { id: 2, value: true},
+    { id: 3, vlaue: false}
+];
+let nextArray = array.concat({ id: 4}); // 새 항목 추가
+nextArray.filter(item => item.id !== 2); // id가 2인 항목 제거
+nextArray.map(item => (item.id === 1 ? { ...item, value: false } : item)); // id가 1인 항목의 value를 false로 설정
