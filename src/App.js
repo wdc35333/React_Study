@@ -1,8 +1,7 @@
-import Say from "./Say";
-// import MyComponent from "./MyComponent";
-// import PracticeComponent from "./PracticeComponent";
+import EventPractice from "./EventPractice";
+
 const App = () => {
-  return <Say />;
+  return <EventPractice />;
 };
 
 export default App;
