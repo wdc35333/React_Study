@@ -260,3 +260,82 @@ componentDidUpdate
 
 LifeCycleSample 컴포넌트 만들기 -> App에 렌더링하기 -> 버튼 누르고 콘솔 창 관찰하기
 
+
+
+# 8장 Hooks
+
+Hooks는 리액트 v16.8에 새로 도입된 기능으로 함수 컴포넌트에서도 상태 관리를 할 수 있는 useState, 렌더링 직후 작업을 설정하는 useEffect 등의 기능을 제공하여 기존의 함수 컴포넌트에서 할 수 없었던 다양한 작업을 할 수 있게 해 줌
+
+이번 실습은 다음과 같은 흐름으로 진행
+
+##### Hooks 배우기
+
+리액트 내장 Hooks 사용하기 -> 커스텀 Hooks 만들기
+
+## 8.1) useState
+
+가장 기본적인 Hook이며, 함수 컨포넌트에서도 가변적인 상태를 지닐 수 있게 해 줌
+
+하나의 useState 함수는 하나의 상태 값만 관리할 수 있음
+
+컴포넌트에서 관리해야 할 상태가 여러 개라면 useState를 여러 번 사용하면 됨
+
+### 8.1.1) useState 여러번 사용하기 실습
+
+## 8.2) useEffect
+
+useEffect는 리액트 컴포넌트가 렌더링될 때마다 특정 작업을 수행하도록 설정할 수 있는 Hook
+
+클래스형 컴포넌트의 componentDidMount와 componentDidUpdate를 합친 형태로 보아도 무방
+
+### 8.2.1) 마운트될 때만 실행하고 싶을 때
+
+useEffect에서 설정한 함수를 컴포넌트가 화면에 맨 처음 랜더링될 때만 실행하고, 업데이트될 때는 실행하지 않으려면 함수의 두 번째 파라미터로 비어 있는 배열을 넣어주면 됨
+
+### 8.2.2) 특정 값이 업데이트될 때만 실행하고 싶을 때
+
+useEffect를 사용할 때, 특정 값이 변경될 때만 호출하고 싶은 경우 다음과 같이 작성
+
+![img](Studymd_img/useEffect_8.2.2_example.png)
+
+이 코드는 props 안에 들어 있는 value 값이 바뀔 때만 특정 작업을 수행
+
+이러한 작업을 useEffect에서 해야 한다면, useEffect의 두 번째 파라미터로 전달되는 배열 안에 검사하고 싶은 값을 넣어주면 된다
+
+![img](Studymd_img/useEffect_8.2.2_example2.png)
+
+​														**Info.js - useEffect**
+
+배열 안에는 useState를 통해 관리하고 있는 상태를 넣어 주어도 되고, props로 전달받은 값을 넣어주어도 됨
+
+### 8.2.3) 뒷정리
+
+useEffect는 기본적으로 렌더링되고 난 직후마다 실행되며, 두 번째 파라미터 배열에 무엇을 넣는지에 따라 실행 조건이 달라짐
+
+컴포넌트가 언마운트되기 전이나 업데이트되기 직전에 어떠한 작업을 수행하고 싶다면 useEffect에서 뒷정리(cleanup) 함수를 반환
+
+![img](Studymd_img/useEffect_8.2.2_example3.png)
+
+뒷정리 함수 설정시 렌더링될 때마다 뒷정리 함수가 계속 나타나고, 호출될 때는 업데이트되기 직전의 값을 보여줌
+
+오직 언마운트될 때만 뒷정리 함수를 호출하고 싶다면 useEffect 함수의 두 번째 파라미터에 비어있는 배열을 넣으면 됨
+
+![img](Studymd_img/useEffect_8.2.2_example4.png)
+
+
+
+
+
+## 8.3) useReducer
+
+## 8.4) useMemo
+
+## 8.5) useCallback
+
+## 8.6) useRef
+
+## 8.7) 커스텀 Hooks 만들기
+
+## 8.8) 다른 Hooks
+
+## 8.9) 정리
