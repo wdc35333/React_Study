@@ -1,80 +1,79 @@
-import { Component } from 'react';
+import { Component } from "react";
 
 class LifeCycleSample extends Component {
-    state = {
-        number: 0,
-        color: null,
+  state = {
+    number: 0,
+    color: null,
+  };
+
+  myRef = null; // ref를 설정할 부분
+
+  constructor(props) {
+    super(props);
+    console.log("constructor");
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log("getDerivedStateFromProps");
+    if (nextProps.color !== prevState.color) {
+      return { color: nextProps.color };
     }
+    return null;
+  }
 
-    myRef = null; // ref를 설정할 부분
+  componentDidMount() {
+    console.log("componentDidMount");
+  }
 
-    constructor(props) {
-        super(props);
-        console.log('constructor');
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("shouldComponentUpdate", nextProps, nextState);
+    // 숫자의 마지막 자리가 4면 리렌더링하지 않습니다.
+    return nextState.number % 10 !== 4;
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+
+  handleClick = () => {
+    this.setState({
+      number: this.state.number + 1,
+    });
+  };
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log("getSnapshotBeforeUpdate");
+    if (prevProps.color !== this.props.color) {
+      return this.myRef.style.color;
     }
+    return null;
+  }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('getDerivedStateFromProps');
-        if(nextProps.color !== prevState.color) {
-            return { color: nextProps.color };
-        }
-        return null;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("componentDidUpdate", prevProps, prevState);
+    if (snapshot) {
+      console.log("업데이트되기 전 색상: ", snapshot);
     }
+  }
 
-    componentDidMount() {
-        console.log('componentDidMount');
-    }
+  render() {
+    console.log("render");
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate', nextProps, nextState);
-        // 숫자의 마지막 자리가 4면 리렌더링하지 않습니다.
-        return nextState.number % 10 !== 4;
-    }
+    const style = {
+      color: this.props.color,
+    };
 
-    componentWillUnmount() {
-        console.log('componentWillUnmount');
-    }
-
-    handleClick = () => {
-        this.setState({
-            number: this.state.number + 1
-        });
-    }
-
-    getSnapshotBeforeUpdate(prevProps, prevState) {
-        console.log('getSnapshotBeforeUpdate');
-        if(prevProps.color !== this.props.color) {
-            return this.myRef.style.color;
-        }
-        return null;
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('componentDidUpdate', prevProps, prevState);
-        if(snapshot) {
-            console.log('업데이트되기 전 색상: ', snapshot);
-        }
-    }
-
-    render() {
-        console.log('render');
-
-        const style = {
-            color: this.props.color
-        };
-
-        return (
-            <div>
-                <h1 style={style} ref={ref => this.myRef=ref}>
-                    {this.state.number}
-                </h1>
-                <p>color: {this.state.color}</p>
-                <button onClick={this.handleClick}>
-                    더하기
-                </button>
-            </div>
-        )
-    }
+    return (
+      <div>
+        {this.props.missing.value}
+        <h1 style={style} ref={(ref) => (this.myRef = ref)}>
+          {this.state.number}
+        </h1>
+        <p>color: {this.state.color}</p>
+        <button onClick={this.handleClick}>더하기</button>
+      </div>
+    );
+  }
 }
 
 export default LifeCycleSample;
