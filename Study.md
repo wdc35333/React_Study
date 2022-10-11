@@ -110,14 +110,13 @@ DOM이 생성되고 웹 브라우저 상에 나타나는 것을 마운트라고 
 #### 마운트할 때 호출하는 메서드:
 컴포넌트 만들기 -> constructor -> getDerivedStateFromPros -> render -> componentDidMount
 
-##### constructor
-컴포넌트를 새로 만들 때 마다 호출되는 클래스 생성자 메서드
-##### getDerivedStateFromProps
-props에 있는 값을 state에 넣을 때 사용하는 메서드
-##### render
-우리가 준비한 UI를 렌더링하는 메서드
-##### componentDidMount
-컴포넌트가 웹 브라우저상에 나타난 후 호출하는 메서드
+- constructor: 컴포넌트를 새로 만들 때 마다 호출되는 클래스 생성자 메서드
+
+- getDerivedStateFromProps: props에 있는 값을 state에 넣을 때 사용하는 메서드
+
+- render: 우리가 준비한 UI를 렌더링하는 메서드
+
+- componentDidMount: 컴포넌트가 웹 브라우저상에 나타난 후 호출하는 메서드
 
 ### 업데이트
 컴포넌트는 다음과 같은 총 네 가지 경우에 업데이트한다.
@@ -132,3 +131,33 @@ getDerivedStateFromProps -> shouldComponentUpdate
 -true 반환시 render 호출, false 반환 시 여기서 작업 취소> render
 -> getSnapshotBeforeUpdate -웹 브라우저상의 실제 DOM 변화>
 componentDidUpdate
+
+#### 컴포넌트의 업데이트 이유
+
+##### 첫째, 부모 컴포넌트에서 넘겨주는 props가 바뀔 때
+
+컴포넌트에 전달하는 props의 값이 바뀌면 컴포넌트 렌더링이 이루어짐
+
+##### 둘째, 컴포넌트 자신이 들고 있는 state가 setState를 통해 업데이트될 때
+
+##### 셋째, 부모 컴포넌트가 리렌더링될 때
+
+자신에게 할당된 props가 바뀌지 않아도, 또는 자신이 들고 있는 state가 바뀌지 않아도,
+
+부모 컴포넌트가 리렌더링되면 자식 컴포넌트 또한 리렌더링 됨
+
+- getDerivedStateFromProps: 이 메서드는 마운트 과정에서도 호출되며, 업데이트가 시작하기 전에도 호출됨. props의 변화에 따라 state값에도 변화를 주고 싶을 때 사용
+- shouldComponentUpdate: 컴포넌트가 리렌더링을 해야 할지 말아야 할지를 결정하는 메서드. 이 메서드에서는 true 혹은 false 값을 반환해야 하며, true를 반환하면 다음 라이프사이클 메서드를 계속 실행하고, false를 반환하면 작업을 중지. 즉, 리렌더링되지 않음. 만약 특정 함수에서 this.forceUpdate() 함수를 호출한다면 이 과정을 생략하고 바로 render 함수를 호출
+- render: 컴포넌트를 리렌더링
+- getSnapshotBeforeUpdate: 컴포넌트 변화를 DOM에 반영하기 바로 직전에 호출하는 메서드
+- componentDidUpdate: 컴포넌트의 업데이트 작업이 끝난 후 호출하는 메서드
+
+### 언마운트
+
+마운트의 반대 과정, 즉 컴포는트를 DOM에서 제거하는 것을 언마운트라고 한다.
+
+#### 언마운트할 때 호출하는 메서드
+
+언마운트하기 -> componentWillUnmount
+
+- componentWillUnmount: 컴포넌트가 웹 브라우저상에서 사라지기 전에 호출하는 메서드
