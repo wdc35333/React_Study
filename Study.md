@@ -85,3 +85,50 @@ arr.map(callback, [thisArg])
  - index: 현재 처리하고 있는 요소의 index 값
  - array: 현재 처리하고 있는 원본 배열
 * thisArg(선택 항목): callback 함수 내부에서 사용할 this 레퍼런스
+
+ex) const names = ['눈사람', '얼음', '눈', '바람'];
+    const nameList = names.map(name => <li>{name}</li>);
+    return <ul>{nameList}</ul>;
+
+# 리액트 컴포넌트의 라이프 사이클
+리액트의 컴포넌트에는 라이프 사이클(수명주기)이 존재한다.
+컴포넌트의 수명은 페이지에 렌더링되기 전인 준비 과정에서 시작하여 페이지에서 사라질 때 끝난다.
+라이프 사이클 메서드는 클래스형 컴포넌트에서만 사용할 수 있다.
+함수형 컴포넌트는 Hooks 기능을 사용하여 비슷한 작업을 처리할 수 있다.
+
+## 라이프사이클 메서드의 이해
+라이프 사이클 메서드의 종류는 총 아홉 가지.
+Will 접두사가 붙은 메서드는 어떤 작업을 작동하기 전에 실행
+Did 접두사가 붙은 메서드는 어떤 작업을 작동한 후에 실행
+이 메서드들은 우리가 컴포넌트 클래스에서 덮어 써 선언함으로써 사용가능
+
+라이프사이클은 총 세 가지 마운트, 업데이트, 언마운트 카테고리로 나눔
+![img](https://velog.velcdn.com/images/imjkim49/post/9a252d58-6e1d-43a8-99f8-0b652cfc44cc/image.png)
+### 마운트
+DOM이 생성되고 웹 브라우저 상에 나타나는 것을 마운트라고 함
+이때 호출하는 메서드는 다음과 같음
+#### 마운트할 때 호출하는 메서드:
+컴포넌트 만들기 -> constructor -> getDerivedStateFromPros -> render -> componentDidMount
+
+##### constructor
+컴포넌트를 새로 만들 때 마다 호출되는 클래스 생성자 메서드
+##### getDerivedStateFromProps
+props에 있는 값을 state에 넣을 때 사용하는 메서드
+##### render
+우리가 준비한 UI를 렌더링하는 메서드
+##### componentDidMount
+컴포넌트가 웹 브라우저상에 나타난 후 호출하는 메서드
+
+### 업데이트
+컴포넌트는 다음과 같은 총 네 가지 경우에 업데이트한다.
+##### 1. props가 바뀔 때
+##### 2. state가 바뀔 때
+##### 3. 부모 컴포넌트가 리렌더링될 때
+##### 4. this.forceUpdate로 강제로 렌더링을 트리거할 때
+이렇게 컴포넌트를 업데이트할 때는 다음 메서드를 호출
+#### 업데이트할 때 호출하는 메서드
+업데이트를 발생시키는 요인(props 변경, state 변경, 부모 컴포넌트 리렌더링) ->
+getDerivedStateFromProps -> shouldComponentUpdate
+-true 반환시 render 호출, false 반환 시 여기서 작업 취소> render
+-> getSnapshotBeforeUpdate -웹 브라우저상의 실제 DOM 변화>
+componentDidUpdate
