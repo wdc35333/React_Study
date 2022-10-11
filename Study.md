@@ -104,6 +104,7 @@ Did 접두사가 붙은 메서드는 어떤 작업을 작동한 후에 실행
 
 라이프사이클은 총 세 가지 마운트, 업데이트, 언마운트 카테고리로 나눔
 ![img](https://velog.velcdn.com/images/imjkim49/post/9a252d58-6e1d-43a8-99f8-0b652cfc44cc/image.png)
+
 ### 마운트
 DOM이 생성되고 웹 브라우저 상에 나타나는 것을 마운트라고 함
 이때 호출하는 메서드는 다음과 같음
@@ -194,7 +195,7 @@ componentDidUpdate
 
 - 리액트 v16.3 이후에 새로 만든 라이프사이클 메서드
 - props로 받아 온 값을 state에 동기화시키는 용도로 사용하며, 컴포넌트가 마운트될 때와 업데이트될 때 호출
-- ![스크린샷 2022-10-11 오전 10.29.54](/Users/wondongchan/Library/Application Support/typora-user-images/스크린샷 2022-10-11 오전 10.29.54.png)
+- ![img](Studymd_img/getDerivedStaticFromProps_example.png)
 
 ### 7.2.4) componentDidMount 메서드
 
@@ -222,7 +223,7 @@ componentDidUpdate
 
 - 이 메서드에서 반환하는 값은 componentDidUpdate에서 세 번째 파라미터인 snapshot 값으로 전달받을 수 있는데, 주로 업데이트하기 직전의 값을 참고할 일이 있을 때 활용 (예: 스크롤바 위치 유지)
 
-- ![스크린샷 2022-10-11 오전 10.39.49](/Users/wondongchan/Library/Application Support/typora-user-images/스크린샷 2022-10-11 오전 10.39.49.png)
+- ![img](Studymd_img/getSnapshotBeforeUpdate_example.png)
 
   
 
@@ -246,7 +247,7 @@ componentDidUpdate
 
 - componentDidCatch 메서드는 리액트 v16에서 새롭게 도입됨
 - 컴포넌트 렌더링 도중에 에러가 발생했을 때 애플리켕션이 먹통이 되지 않고 오류 UI를 보여 줄 수 있게 해줌
-- 사용방법: ![스크린샷 2022-10-11 오전 10.46.23](/Users/wondongchan/Library/Application Support/typora-user-images/스크린샷 2022-10-11 오전 10.46.23.png)
+- 사용방법: ![img](Studymd_img/componentDidCatch_example.png)
 - 여기서는 error는 파라미터에 어떤 에러가 발생했는지 알려주며, info 파라미터는 어디에 있는 코드에서 오류가 발생했는지에 대한 정보를 줌
 - 앞의 코드에서는 그저 console.log만 했지만, 나중에 실제로 사용할 때 오류가 발생하면 서버 API를 호출하여 따로 수집할 수도 있음
 - 그러나 이 메서드를 사용할 때는 컴포넌트 자신에게 발생하는 에러를 잡아낼 수 없고 자신의 this.props.children으로 전달되는 컴포넌트에서 발생하는 에러만 잡아낼 수 있다.
